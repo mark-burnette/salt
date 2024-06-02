@@ -35,19 +35,20 @@ def _parse_numbers(text):
     Returns a decimal number if the string is a real number,
     or the string unchanged otherwise.
     """
+    
     if text.isdigit():
         return decimal.Decimal(text)
 
     try:
         postPrefixes = {
-            "K": "10E3",
-            "M": "10E6",
-            "G": "10E9",
-            "T": "10E12",
-            "P": "10E15",
-            "E": "10E18",
-            "Z": "10E21",
-            "Y": "10E24",
+            "K": "1e3",
+            "M": "1e6",
+            "G": "1e9",
+            "T": "1e12",
+            "P": "1e15",
+            "E": "1e18",
+            "Z": "1e21",
+            "Y": "1e24",
         }
         if text[-1] in postPrefixes:
             v = decimal.Decimal(text[:-1])
@@ -56,6 +57,8 @@ def _parse_numbers(text):
         else:
             return decimal.Decimal(text)
     except ValueError:
+        return text
+    except IndexError:
         return text
 
 
